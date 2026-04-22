@@ -3,7 +3,7 @@
 A manipulação de listas é um dos conceitos fundamentais em Prolog, sendo amplamente utilizada para representar conjuntos de dados e realizar operações como inserção, remoção e busca de elementos. Listas permitem trabalhar com estruturas dinâmicas de forma simples e eficiente dentro da programação lógica.
 
 ## Parte Teórica
-### - Como funcionam as listas:
+### Como funcionam as listas:
 Listas em Prolog são estruturas que armazenam elementos de forma ordenada. Elas são definidas entre colchetes e podem conter qualquer tipo de dado.
 ```prolog
 [4, X, casa(1, azul), a]
@@ -15,7 +15,7 @@ Uma lista também pode ser dividida em cabeça (Head) e cauda (Tail):
 ```
 Onde H é o primeiro elemento e T é o restante da lista
 
-### - Exemplos de predicados básicos:
+### Exemplos de predicados básicos:
 
 list_to_set transforma uma lista em um **set**, onde set é um tipo de lista que não possui elementos repetidos:
 ```prolog
@@ -33,7 +33,15 @@ sum_list(Lista, Soma).
 ```
 
 ## Parte Prática
+### Exemplo 1:
+Código utilizado é [movies](movies.pl) disponibilizado na aula do dia 15/04.
 
+O objetivo é criar um predicado para contar a quantidade de usuários que recomendaram filmes:
+```prolog
+allusers(L) :- findall(U, likes(U, _),L).
+
+countusers(C) :- allusers(U), length(U, C).
+```
 
 
 ## Fontes:
