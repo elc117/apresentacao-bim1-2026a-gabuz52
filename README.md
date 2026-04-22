@@ -42,7 +42,42 @@ allusers(L) :- findall(U, likes(U, _),L).
 
 countusers(C) :- allusers(U), length(U, C).
 ```
+![](countusers.gif)
 
+Este predicado segue o mesmo padrão do countgenres
+```prolog
+allgenres(R) :- findall(G,genre(_,G),L), list_to_set(L,R).
+       
+countgenres(C) :- allgenres(G), length(G, C).
+```
+Com a diferença do predicado list_to_set não ser necessário, já que cada usuário aparece apenas uma vez no código
+
+### Exemplo 2:
+
+Puzzle de lógica, o objetivo é descobrir a ordem, as cores, quem mora em cada casa e de quem é cada pet pelas informações dadas:
+- Existem 3 casas alinhadas, cada uma com uma cor diferente: vermelha, verde e azul.
+- Em cada casa vive uma pessoa: Alice, Bob e Carla.
+- Cada pessoa tem um pet: gato, cachorro, hamster.
+- Bob vive na casa vermelha.
+- A pessoa que tem um gato vive na casa do meio.
+- Carla tem um hamster e vive na casa ao lado da casa azul.
+- A primeira casa é verde.
+- Qual a cor, o morador e o pet de cada casa?
+
+**Solução**
+```prolog
+ao_lado(X, Y, List) :- nextto(X, Y, List). % X à esquerda de Y
+ao_lado(X, Y, List) :- nextto(Y, X, List). % Y à esquerda de X
+
+solucao(Casas) :-
+  Casas = [casa(_,verde,_),casa(_,_,gato),_],    %"A primeira casa é verde" e "A pessoa que tem um gato vive na casa do meio"
+  member(casa(_,_,cachorro),Casas),              % Como não existem afirmações que envolvem o cachorro, a cor azul, e a Alice,
+  member(casa(_,azul,_),Casas),                  % esses 3 fatos foram criados para indicar a existência deles.
+  member(casa(alice,_,_),Casas),
+  member(casa(bob,vermelha,_),Casas),            %"Bob vive na casa vermelha"
+  member(casa(carla,_,hamster),Casas),           %"Carla tem um hamster"
+  ao_lado(casa(carla,_,_),casa(_,azul,_),Casas). %"Carla vive ao lado da casa azul"
+```
 
 ## Fontes:
 
