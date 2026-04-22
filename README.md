@@ -78,6 +78,7 @@ solucao(Casas) :-
   member(casa(carla,_,hamster),Casas),           %"Carla tem um hamster"
   ao_lado(casa(carla,_,_),casa(_,azul,_),Casas). %"Carla vive ao lado da casa azul"
 ```
+![](puzzle.gif)
 
 ## Fontes:
 
